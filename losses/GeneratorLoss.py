@@ -29,6 +29,7 @@ class AdversarialLoss(nn.Module):
 
 class IdentityPreservationLoss(nn.Module):
 	def __init__(self, ArcFace):
+		super.__init__()
 		self.model = ArcFace
 		self.loss = nn.CosineEmbeddingLoss()
 
