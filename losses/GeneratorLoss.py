@@ -9,23 +9,23 @@ class FinalLoss(nn.Module):
 		self.losses = nn.ModuleList(losses)
 		self.coefs = torch.FloatTensor(coefs)
 
-    def forward(self, **kwargs):
-    	result = 0.
-    	for loss_func, coef in zip(self.losses, self.coefs):
-    		result += loss_func(**kwargs) * coef
-    	return result
+	def forward(self, **kwargs):
+		result = 0
+		for loss_func, coef in zip(self.losses, self.coefs):
+			result += loss_func(**kwargs) * coef
+		return result
 
 # kwargs --> 'fake_disc_out', 'source', 'target', 'side', 'final'
 
 
 class AdversarialLoss(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.bce_loss = nn.BCEWithLogitsLoss()
+	def __init__(self):
+		super().__init__()
+		self.bce_loss = nn.BCEWithLogitsLoss()
 
-    def forward(self, fake_disc_out: Tensor, **kwargs):
-        labels = torch.ones_like(fake_disc_out).to(fake_disc_out)
-        return self.bce_loss(fake_disc_out, labels)
+	def forward(self, fake_disc_out: Tensor, **kwargs):
+		labels = torch.ones_like(fake_disc_out).to(fake_disc_out)
+		return self.bce_loss(fake_disc_out, labels)
 
 class IdentityPreservationLoss(nn.Module):
 	def __init__(self, ArcFace):
@@ -68,14 +68,14 @@ class StyleTransferLoss(nn.Module):
 		super().__init__()
  
 	def mask_preprocess(self, mask):
-        index_tmp = mask.nonzero()
-        x_index = index_tmp[:, 2]
-        y_index = index_tmp[:, 3]
-        return [x_index, y_index, x_index, y_index]
+		index_tmp = mask.nonzero()
+		x_index = index_tmp[:, 2]
+		y_index = index_tmp[:, 3]
+		return [x_index, y_index, x_index, y_index]
 
 	def forward(self, target: Tensor, final: Tensor, t_mask: Tensor, **kwargs):
 		index = self.mask_index(mask)
 		HM = histogram_matching(final, target, index) #need to define index
-    	return np.linalg.norm(yf - HM)
+		return np.linalg.norm(yf - HM)
 
 
