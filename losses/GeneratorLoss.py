@@ -1,5 +1,5 @@
 import torch
-from torch import nn as nn
+from torch import nn as nn, Tensor, List
 import lpips
 from histogram_matching import cal_hist, cal_trans, histogram_matching
 
