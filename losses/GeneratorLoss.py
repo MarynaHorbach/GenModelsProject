@@ -3,7 +3,7 @@ from torch import nn as nn
 import lpips
 from histogram_matching import cal_hist, cal_trans, histogram_matching
 
-def FinalLoss(nn.Module):
+class FinalLoss(nn.Module):
 	def __init__(self, losses: List[nn.Module], coefs: List[nn.Module]):
 		super().__init__()
 		self.losses = nn.ModuleList(losses)
