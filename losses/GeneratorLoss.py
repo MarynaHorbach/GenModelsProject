@@ -7,7 +7,7 @@ class FinalLoss(nn.Module):
 	def __init__(self, losses: List[nn.Module], coefs: List[nn.Module]):
 		super().__init__()
 		self.losses = nn.ModuleList(losses)
-        self.coefs = torch.tensor(coefs)
+        self.coefs = torch.FloatTensor(coefs)
 
     def forward(self, **kwargs):
     	result = 0.
