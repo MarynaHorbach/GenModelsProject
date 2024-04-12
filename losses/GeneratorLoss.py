@@ -64,7 +64,7 @@ class ReconstructionLoss(nn.Module):
 			self.lpips(final, target) + self.lpips(side, target))
 
 class StyleTransferLoss(nn.Module):
-	def __init__(self)
+	def __init__(self):
 		super().__init__()
  
 	def mask_preprocess(self, mask):
